@@ -1,0 +1,23 @@
+package repositories
+
+import (
+	"github.com/MatheusMikio/eduGuard_api/internal/domain/entities"
+	"github.com/MatheusMikio/eduGuard_api/internal/repositories/base"
+	"gorm.io/gorm"
+)
+
+type ICameraRepository interface {
+	base.IBaseRepository[entities.Camera]
+}
+
+type CameraRepository struct {
+	base.BaseRepository[entities.Camera]
+}
+
+func NewCameraRepository(db *gorm.DB) ICameraRepository {
+	return &CameraRepository{
+		BaseRepository: base.BaseRepository[entities.Camera]{
+			Db: db,
+		},
+	}
+}
