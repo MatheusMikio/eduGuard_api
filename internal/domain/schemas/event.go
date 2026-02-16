@@ -1,4 +1,4 @@
-package entities
+package schemas
 
 import (
 	"time"
@@ -24,8 +24,8 @@ const (
 
 type Event struct {
 	gorm.Model
-	CameraID     uint `gorm:"not null"`
-	Camera       *Camera
+	CameraID     uint        `gorm:"not null"`
+	Camera       *Camera     `gorm:"foreignKey:CameraID"`
 	Type         EventType   `gorm:"not null"`
 	RiskScore    float64     `gorm:"not null"`
 	Status       EventStatus `gorm:"not null;default:'PENDING'"`
@@ -33,7 +33,7 @@ type Event struct {
 	EndedAt      time.Time   `gorm:"not null"`
 	VideoClipURL string      `gorm:"type:text"`
 	ReviewedByID *uint
-	ReviewedBy   *User
+	ReviewedBy   *User `gorm:"foreignKey:ReviewedByID"`
 	ReviewedAt   *time.Time
 	Notes        string
 }

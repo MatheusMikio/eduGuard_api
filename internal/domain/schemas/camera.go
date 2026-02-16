@@ -1,4 +1,4 @@
-package entities
+package schemas
 
 import "gorm.io/gorm"
 
@@ -12,9 +12,12 @@ const (
 type Camera struct {
 	gorm.Model
 	Label     string       `gorm:"not null"`
+	Location  string       `gorm:"not null"`
 	StreamURL string       `gorm:"not null"`
 	Status    CameraStatus `gorm:"not null;default:'OFFLINE'"`
-	RoomID    uint         `gorm:"not null"`
-	Room      *Room
+	SchoolID  uint         `gorm:"not null"`
+	School    *School      `gorm:"foreignKey:SchoolID"`
+	RoomID    *uint        `gorm:"default:null"`
+	Room      *Room        `gorm:"foreignKey:RoomID"`
 	Events    []Event
 }

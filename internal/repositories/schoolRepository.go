@@ -1,22 +1,22 @@
 package repositories
 
 import (
-	"github.com/MatheusMikio/eduGuard_api/internal/domain/entities"
+	"github.com/MatheusMikio/eduGuard_api/internal/domain/schemas"
 	"github.com/MatheusMikio/eduGuard_api/internal/repositories/base"
 	"gorm.io/gorm"
 )
 
 type ISchoolRepository interface {
-	base.IBaseRepository[entities.School]
+	base.IBaseRepository[schemas.School]
 }
 
 type SchoolRepository struct {
-	base.BaseRepository[entities.School]
+	base.BaseRepository[schemas.School]
 }
 
 func NewSchoolRepository(db *gorm.DB) ISchoolRepository {
 	return &SchoolRepository{
-		BaseRepository: base.BaseRepository[entities.School]{
+		BaseRepository: base.BaseRepository[schemas.School]{
 			Db: db,
 		},
 	}

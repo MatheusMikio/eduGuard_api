@@ -3,8 +3,9 @@ package config
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
-	"github.com/MatheusMikio/eduGuard_api/internal/domain/entities"
+	"github.com/MatheusMikio/eduGuard_api/internal/domain/schemas"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -12,7 +13,9 @@ import (
 
 func initPostgreSQL() (*gorm.DB, error) {
 	logger := GetLogger("PostgreSQL")
-	if err := godotenv.Load(); err != nil {
+
+	envPath := filepath.Join("..", "..", ".env")
+	if err := godotenv.Load(envPath); err != nil {
 		logger.Errorf("Error loading .env file: %v", err)
 		return nil, err
 	}
@@ -28,10 +31,10 @@ func initPostgreSQL() (*gorm.DB, error) {
 	}
 
 	err = db.AutoMigrate(
-		&entities.Camera{},
-		&entities.Event{},
-		&entities.Room{},
-		&entities.School{},
+		&schemas.Camera{},
+		&schemas.Event{},
+		&schemas.Room{},
+		&schemas.School{},
 	)
 
 	if err != nil {
