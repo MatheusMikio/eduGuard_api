@@ -3,8 +3,8 @@ package base
 import "gorm.io/gorm"
 
 type IBaseRepository[T any] interface {
-	GetAll(page uint, size uint) ([]*T, error)
-	GetById(id uint) (*T, error)
+	GetAll(page uint64, size uint64) ([]*T, error)
+	GetById(id uint64) (*T, error)
 	Create(entity *T) error
 	Update(entity *T) error
 	Delete(entity *T) error
@@ -14,7 +14,7 @@ type BaseRepository[T any] struct {
 	Db *gorm.DB
 }
 
-func (b *BaseRepository[T]) GetAll(page uint, size uint) ([]*T, error) {
+func (b *BaseRepository[T]) GetAll(page uint64, size uint64) ([]*T, error) {
 	var entities []*T
 	offSet := int((page - 1) * size)
 	if err := b.Db.Offset(offSet).Limit(int(size)).Find(&entities).Error; err != nil {
@@ -23,7 +23,7 @@ func (b *BaseRepository[T]) GetAll(page uint, size uint) ([]*T, error) {
 	return entities, nil
 }
 
-func (b *BaseRepository[T]) GetById(id uint) (*T, error) {
+func (b *BaseRepository[T]) GetById(id uint64) (*T, error) {
 	var entity *T
 	if err := b.Db.First(&entity, id).Error; err != nil {
 		return nil, err

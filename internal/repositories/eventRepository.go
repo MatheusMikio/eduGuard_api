@@ -1,22 +1,22 @@
 package repositories
 
 import (
-	"github.com/MatheusMikio/eduGuard_api/internal/domain/entities"
+	"github.com/MatheusMikio/eduGuard_api/internal/domain/schemas"
 	"github.com/MatheusMikio/eduGuard_api/internal/repositories/base"
 	"gorm.io/gorm"
 )
 
 type IEventRepository interface {
-	base.IBaseRepository[entities.Event]
+	base.IBaseRepository[schemas.Event]
 }
 
 type EventRepository struct {
-	base.BaseRepository[entities.Event]
+	base.BaseRepository[schemas.Event]
 }
 
 func NewEventRepository(db *gorm.DB) IEventRepository {
 	return &EventRepository{
-		BaseRepository: base.BaseRepository[entities.Event]{
+		BaseRepository: base.BaseRepository[schemas.Event]{
 			Db: db,
 		},
 	}

@@ -3,7 +3,7 @@ package handlers
 import (
 	"fmt"
 
-	"github.com/MatheusMikio/eduGuard_api/internal/domain/entities"
+	"github.com/MatheusMikio/eduGuard_api/internal/domain/schemas"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,7 +28,7 @@ func SendAuthSuccess(
 	code int, accessToken string,
 	refreshToken string,
 	expiresIn int64,
-	user entities.User,
+	user schemas.User,
 ) {
 	ctx.Header("Content-type", "application/json")
 	ctx.JSON(code, gin.H{
